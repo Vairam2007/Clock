@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clock</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        body{
+            width: 100%;
+            height: 100vh;
+            background:linear-gradient(35deg,rgb(8, 192, 78), rgb(0, 204, 255), rgb(33, 100, 224));
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        button,input{
+            border: none;
+            outline: none;
+            cursor: pointer;
+        }
+        .page{
+            position: relative;
+            background-color: whitesmoke;
+            border: 15px solid black;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            box-shadow: 0 0 20px rgba(0,0,0);
+
+        }
+        .point{
+            width: 17px;
+            height: 17px;
+            background-color: black;
+            position: absolute;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            z-index: 10;
+        }
+        .sec{
+            position: absolute;
+            width: 2px;
+            height: 230px;
+            background-color: red;
+            top: 0%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            transform-origin: bottom;
+        }
+        .min{
+            position: absolute;
+            width: 5px;
+            height: 210px;
+            background-color: black;
+            top: 5%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            transform-origin: bottom;
+            z-index: 6;
+        }
+        .hour{
+            position: absolute;
+            width: 10px;
+            height: 115px;
+            margin-top: 115px;
+            background-color: blue;
+            top: 0;
+            left: 48.9%;
+            transform: translate(-50%,-50%);
+            transform-origin: bottom;
+            z-index: 8;
+        }
+        .num{
+            font-size: 1.7em;
+            position: absolute;
+            padding: 10px;
+        }
+        #one{
+            top: 20px;
+            right: 110px;
+        }
+        #two{
+            top: 95px;
+            right: 30px;
+        }
+        #three{
+            right: 0;
+            top: 205px;
+        }
+        #four{
+            bottom: 105px;
+            right: 25px;
+        }
+        #five{
+            bottom: 25px;
+            right: 105px;
+        }
+        #six{
+            bottom: 0;
+            left: 220px;
+        }
+        #seven{
+            bottom: 25px;
+            left: 110px;
+        }
+        #eight{
+            bottom: 105px;
+            left: 25px;
+        }
+        #nine{
+            left:0;
+            top: 205px;
+        }
+        #ten{
+            top: 100px;
+            left: 30px;
+        }
+        #oneone{
+            top: 20px;
+            left: 110px;
+        }
+        #twotwo{
+            top: 0;
+            left: 210px;    
+        }
+        input{
+            position: absolute;
+            width: 100px;
+            bottom:-100px ;
+            border-radius: 20px 0px 0px 20px;
+            padding: 5px 10px;
+            left: 50px;
+        }
+        #btn{
+            position: absolute;
+            width: 50px;
+            height: 30px;
+            bottom: -100px;
+            left: 150px;
+            padding: 5px 10px;
+            border-radius: 0px 20px 20px 0px;
+            background-color: rgb(0, 217, 255);
+        }
+        #btn2{
+            position: absolute;
+            width: 50px;
+            height: 30px;
+            bottom: -100px;
+            right: 50px;
+            width: 100px;
+            border-radius: 20px;
+            background-color: green;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="page">
+        <div class="point"></div>
+        <div id="hour" class="hour"></div>
+        <div id="min" class="min"></div>
+        <div id="sec" class="sec"></div>
+
+        <div id="one" class="num">1</div>
+        <div id="two" class="num">2</div>
+        <div id="three" class="num">3</div>
+        <div id="four" class="num">4</div>
+        <div id="five" class="num">5</div>
+        <div id="six" class="num">6</div>
+        <div id="seven" class="num">7</div>
+        <div id="eight" class="num">8</div>
+        <div id="nine" class="num">9</div>
+        <div id="ten" class="num">10</div>
+        <div id="oneone" class="num">11</div>
+        <div id="twotwo" class="num">12</div>
+
+
+        <input id="input" type="time">
+        <button id="btn" onclick="btn()">click</button>
+        <button id="btn2" onclick="time()">Current time</button>
+    </div>
+
+    <script>
+            var newhour;
+            var newmin; 
+            var timmer;
+            var newsec = 0;
+            var time;
+            document.getElementById("hour").style.transform='rotate('+0+'deg)';
+            document.getElementById("min").style.transform='rotate('+0+'deg)';
+            document.getElementById("sec").style.transform='rotate('+0+'deg)';
+        
+            time()
+
+        function time(){
+            clearInterval(time);
+            timmer = setInterval(current_time, 100);
+             
+        }
+        function current_time(){
+                var day = new Date();
+                var hour = day.getHours()*30;
+                var min = day.getMinutes()*6;
+                var sec = day.getSeconds()*6;
+
+                document.getElementById("hour").style.transform='rotate('+hour+'deg)';
+                document.getElementById("min").style.transform='rotate('+min+'deg)';
+                document.getElementById("sec").style.transform='rotate('+sec+'deg)';
+            };
+        function btn(){
+            
+            clearInterval(timmer);
+
+            var input = document.getElementById("input");
+            var val = input.value;
+            var split = val.split(":");
+
+            document.getElementById("hour").style.transform='rotate('+split[0]*30+'deg)';
+            document.getElementById("min").style.transform='rotate('+split[1]*6+'deg)';
+
+            time = setInterval(newtime(split[0],split[1]),1000); 
+        }
+        function newtime(newhour ,newmin){
+            document.getElementById("hour").style.transform='rotate('+newhour*30+'deg)';
+            document.getElementById("min").style.transform='rotate('+newmin*6+'deg)';
+            document.getElementById("sec").style.transform='rotate('+newsec*6+'deg)';
+            newsec++;
+            if(newsec == 60){
+                newmin++
+                newsec=0
+            }
+            if(newmin == 60){
+                newhour++
+                newmin=0
+            }
+        }
+    </script>
+</body>
+</html>
